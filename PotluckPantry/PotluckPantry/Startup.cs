@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using PotluckPantry.Areas.Data.Accessors;
 using PotluckPantry.Data;
 using System;
 using System.Collections.Generic;
@@ -38,6 +39,9 @@ namespace PotluckPantry
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
+
+            services.AddTransient<IRecipeRepository, EFRecipeRepository>();
+            services.AddTransient<IIngredientRepository, EFIngredientRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

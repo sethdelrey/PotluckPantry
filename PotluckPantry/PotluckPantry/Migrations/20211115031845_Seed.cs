@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace PotluckPantry.Migrations
 {
-    public partial class AddingReviews : Migration
+    public partial class Seed : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -65,7 +65,8 @@ namespace PotluckPantry.Migrations
                 {
                     Id = table.Column<string>(type: "TEXT", maxLength: 36, nullable: false),
                     Title = table.Column<string>(type: "TEXT", nullable: false),
-                    Description = table.Column<string>(type: "TEXT", nullable: true)
+                    Description = table.Column<string>(type: "TEXT", nullable: true),
+                    PostTime = table.Column<DateTime>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -231,6 +232,31 @@ namespace PotluckPantry.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.InsertData(
+                table: "Ingredients",
+                columns: new[] { "Id", "Description", "Name" },
+                values: new object[] { "613d362f-8b05-43c6-822d-b84e4d9f5f59", "A Pig Stomach, cleaned", "Ponce" });
+
+            migrationBuilder.InsertData(
+                table: "Ingredients",
+                columns: new[] { "Id", "Description", "Name" },
+                values: new object[] { "7bcc0279-8b61-4924-9950-b729b40cd0b5", "Onion, Green Bell Pepper, and Celery", "Trinity" });
+
+            migrationBuilder.InsertData(
+                table: "Recipes",
+                columns: new[] { "Id", "Description", "PostTime", "Title" },
+                values: new object[] { "5e07d9ea-6016-4a10-ae58-6ae2e8666f88", "Bake Ponce and Trinity at 350 degrees for 2 hours or until ponce is tender. Serve warm.", new DateTime(2021, 11, 14, 21, 18, 45, 107, DateTimeKind.Local).AddTicks(8896), "Baked Ponce" });
+
+            migrationBuilder.InsertData(
+                table: "RecipeIngredients",
+                columns: new[] { "IngredientId", "NormalizedAmount", "RecipeId", "Amount" },
+                values: new object[] { "613d362f-8b05-43c6-822d-b84e4d9f5f59", "1 PONCE", "5e07d9ea-6016-4a10-ae58-6ae2e8666f88", "1 Ponce" });
+
+            migrationBuilder.InsertData(
+                table: "RecipeIngredients",
+                columns: new[] { "IngredientId", "NormalizedAmount", "RecipeId", "Amount" },
+                values: new object[] { "7bcc0279-8b61-4924-9950-b729b40cd0b5", "2 CUPS", "5e07d9ea-6016-4a10-ae58-6ae2e8666f88", "2 Cups" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",

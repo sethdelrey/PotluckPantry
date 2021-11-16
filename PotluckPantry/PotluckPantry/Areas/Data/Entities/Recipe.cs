@@ -19,5 +19,10 @@ namespace PotluckPantry.Areas.Data.Entities
         [DataType(DataType.DateTime)]
         public DateTime PostTime { get; set; }
         public virtual List<RecipeIngredient> RecipeIngredients { get; set; }
+
+/*        public Recipe()
+        {
+            RecipeIngredients = new List<RecipeIngredient>();
+        }*/
     }
 }

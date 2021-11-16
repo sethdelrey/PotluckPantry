@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace PotluckPantry.Models
 {
-    public class RecipeModel
+    public class HomeModel
     {
-        public Recipe Recipe { get; set; }
-        public bool IsUsersRecipe { get; set; }
+        IEnumerable<Recipe> Recipes { get; set; }
     }
 }

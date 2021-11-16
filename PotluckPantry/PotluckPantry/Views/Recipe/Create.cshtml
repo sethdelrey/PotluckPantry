@@ -1,0 +1,51 @@
+﻿@model NewRecipeModel
+
+<div class="card">
+    <div class="card-header">Add your recipe</div>
+    <div class="card-body">
+        <form asp-action="CreateRecipe" id="form">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="card-text">
+                <div class="form-group">
+                    <label asp-for="Name">What is your recipe called?</label>
+                    <input asp-for="Name" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Description">What is your recipe called?</label>
+                    <textarea asp-for="Description" class="form-control"></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+                <div id="recipeIngredientsContainer">
+                    @Html.EditorFor(model => model.RecipeIngredients)
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <input class="btn btn-primary" type="button" id="btnAdd" value="Add ingredient" />
+                    </div>
+                    <div class="col-md-2">
+                        <button class="btn btn-primary" type="submit">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        $("#btnAdd").on('click', function () {
+            $.ajax({
+                async: true,
+                data: $('#form').serialize(),
+                type: "POST",
+                url: '/Recipe/AddIngredient',
+                success: function (partialView) {
+                    console.log("partialView: " + partialView);
+                    $('#recipeIngredientsContainer').html(partialView);
+                }
+            });
+        });
+    </script>
+}

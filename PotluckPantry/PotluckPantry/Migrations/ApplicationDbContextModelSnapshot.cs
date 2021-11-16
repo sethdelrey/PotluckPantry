@@ -228,6 +228,20 @@ namespace PotluckPantry.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Ingredients");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "613d362f-8b05-43c6-822d-b84e4d9f5f59",
+                            Description = "A Pig Stomach, cleaned",
+                            Name = "Ponce"
+                        },
+                        new
+                        {
+                            Id = "7bcc0279-8b61-4924-9950-b729b40cd0b5",
+                            Description = "Onion, Green Bell Pepper, and Celery",
+                            Name = "Trinity"
+                        });
                 });
 
             modelBuilder.Entity("PotluckPantry.Areas.Data.Entities.Recipe", b =>
@@ -239,6 +253,9 @@ namespace PotluckPantry.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("TEXT");
 
+                    b.Property<DateTime>("PostTime")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -246,6 +263,15 @@ namespace PotluckPantry.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Recipes");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "5e07d9ea-6016-4a10-ae58-6ae2e8666f88",
+                            Description = "Bake Ponce and Trinity at 350 degrees for 2 hours or until ponce is tender. Serve warm.",
+                            PostTime = new DateTime(2021, 11, 14, 21, 18, 45, 107, DateTimeKind.Local).AddTicks(8896),
+                            Title = "Baked Ponce"
+                        });
                 });
 
             modelBuilder.Entity("PotluckPantry.Areas.Data.Entities.Review", b =>
@@ -303,6 +329,22 @@ namespace PotluckPantry.Migrations
                     b.HasIndex("IngredientId");
 
                     b.ToTable("RecipeIngredients");
+
+                    b.HasData(
+                        new
+                        {
+                            RecipeId = "5e07d9ea-6016-4a10-ae58-6ae2e8666f88",
+                            IngredientId = "613d362f-8b05-43c6-822d-b84e4d9f5f59",
+                            NormalizedAmount = "1 PONCE",
+                            Amount = "1 Ponce"
+                        },
+                        new
+                        {
+                            RecipeId = "5e07d9ea-6016-4a10-ae58-6ae2e8666f88",
+                            IngredientId = "7bcc0279-8b61-4924-9950-b729b40cd0b5",
+                            NormalizedAmount = "2 CUPS",
+                            Amount = "2 Cups"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

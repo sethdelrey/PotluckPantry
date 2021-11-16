@@ -23,7 +23,7 @@ namespace PotluckPantry.Data
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            base.OnModelCreating(builder);
+            
             builder.Entity<IdentityRole>(entity => entity.Property(m => m.Id).HasMaxLength(256));
 
             builder.Entity<RecipeIngredient>()
@@ -38,6 +38,56 @@ namespace PotluckPantry.Data
                 .HasOne(ri => ri.Ingredient)
                 .WithMany(i => i.RecipeIngredients)
                 .HasForeignKey(ri => ri.IngredientId);
+
+            var ingredients = new[]
+            {
+                new Ingredient() 
+                {
+                    Id = "613d362f-8b05-43c6-822d-b84e4d9f5f59",
+                    Name = "Ponce",
+                    Description = "A Pig Stomach, cleaned"
+                },
+                new Ingredient()
+                {
+                    Id = "7bcc0279-8b61-4924-9950-b729b40cd0b5",
+                    Name = "Trinity",
+                    Description = "Onion, Green Bell Pepper, and Celery"
+                }
+            };
+
+            var recipe = new[]
+            {
+                new Recipe()
+                {
+                    Id = "5e07d9ea-6016-4a10-ae58-6ae2e8666f88",
+                    Title = "Baked Ponce",
+                    PostTime = DateTime.Now,
+                    Description = "Bake Ponce and Trinity at 350 degrees for 2 hours or until ponce is tender. Serve warm."
+                }
+            };
+
+            var ponceIngredients = new[]
+            {
+                new RecipeIngredient()
+                {
+                    RecipeId = "5e07d9ea-6016-4a10-ae58-6ae2e8666f88",
+                    IngredientId = "613d362f-8b05-43c6-822d-b84e4d9f5f59",
+                    Amount = "1 Ponce",
+                    NormalizedAmount = "1 PONCE"
+                },
+                new RecipeIngredient()
+                {
+                    RecipeId = "5e07d9ea-6016-4a10-ae58-6ae2e8666f88",
+                    IngredientId = "7bcc0279-8b61-4924-9950-b729b40cd0b5",
+                    Amount = "2 Cups",
+                    NormalizedAmount = "2 CUPS"
+                }
+            };
+
+            builder.Entity<Ingredient>().HasData(ingredients);
+            builder.Entity<Recipe>().HasData(recipe);
+            builder.Entity<RecipeIngredient>().HasData(ponceIngredients);
+            base.OnModelCreating(builder);
         }
 
         public class RecipeIngredient

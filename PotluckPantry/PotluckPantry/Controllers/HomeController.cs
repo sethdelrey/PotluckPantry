@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using PotluckPantry.Areas.Data.Accessors;
 using PotluckPantry.Models;
 using System;
 using System.Collections.Generic;
@@ -12,10 +14,14 @@ namespace PotluckPantry.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IRecipeRepository _repo;
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IRecipeRepository repo, UserManager<IdentityUser> userManager)
         {
             _logger = logger;
+            _repo = repo;
+            _userManager = userManager;
         }
 
         public IActionResult Index()

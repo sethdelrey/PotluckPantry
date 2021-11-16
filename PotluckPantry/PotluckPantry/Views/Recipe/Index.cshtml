@@ -1,0 +1,26 @@
+﻿@model RecipeModel
+
+<div class="card">
+    <div class="card-header"><h2>@Model.Recipe.Title</h2></div>
+    <div class="card-body">
+        <!-- Ingredients Start -->
+        <div>
+            <h3>Ingredients</h3>
+            <ul>
+                @foreach (var ingredient in Model.Recipe.RecipeIngredients)
+                {
+                    <li>
+                        @ingredient.Ingredient.Name : @ingredient.Amount
+                    </li>
+                }
+            </ul>
+        </div>
+        <!-- Ingredients End -->
+        <!-- Decription Start-->
+        <div>
+            <h3>Steps</h3>
+            <div>@Model.Recipe.Description</div>
+        </div>
+        <!-- Decription Start-->
+    </div>
+</div>
