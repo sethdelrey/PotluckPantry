@@ -34,7 +34,7 @@ namespace PotluckPantry.Areas.Data.Accessors
 
         public IEnumerable<Recipe> GetRecipes()
         {
-            throw new NotImplementedException();
+            return _context.Recipes.ToList();
         }
 
         public void Save()

@@ -8,6 +8,6 @@ namespace PotluckPantry.Models
 {
     public class HomeModel
     {
-        IEnumerable<Recipe> Recipes { get; set; }
+        public IEnumerable<Recipe> Recipes { get; set; }
     }
 }

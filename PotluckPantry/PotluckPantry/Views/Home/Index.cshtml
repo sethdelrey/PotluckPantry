@@ -1,8 +1,38 @@
-﻿@{
+﻿@model HomeModel
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div>
+    <div class="container">
+        <div class="row">
+            @foreach (var recipe in Model.Recipes)
+            {
+                <div class="col-sm">
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            @recipe.Title
+                        </div>
+                        <div class="card-body">
+                            <div class="card-text">
+                                <div>
+                                    Description: 
+                                    <br />
+                                    @recipe.Description
+                                </div>
+                                <div>
+                                    Rating: 3/5
+                                </div>
+                                <br /> 
+                                <div>
+                                    <a asp-action="Index" asp-controller="Recipe" asp-route-id="@recipe.Id">See Full Recipe</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
 </div>

@@ -26,7 +26,11 @@ namespace PotluckPantry.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            
+            return View(new HomeModel() 
+            { 
+                Recipes = _repo.GetRecipes()
+            });
         }
 
         public IActionResult Privacy()
