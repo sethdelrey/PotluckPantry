@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using PotluckPantry.Areas.Data.Accessors;
 using PotluckPantry.Areas.Data.Entities;
 using PotluckPantry.Areas.Data.Extension;
@@ -29,15 +30,15 @@ namespace PotluckPantry.Controllers
         {
             if (id != null)
             {
-                 var recipe = _repo.GetRecipe(id);
+                var recipe = _repo.GetRecipe(id);
                 if (recipe != null)
                 {
                     var userRecipe = recipe.Id == User.GetLoggedInUserId<string>();
                     return View(new RecipeModel() { Recipe = recipe, IsUsersRecipe = userRecipe });
                 }
-                
+
             }
-            
+
 
             return View();
         }
@@ -66,20 +67,20 @@ namespace PotluckPantry.Controllers
                     {
                         ingredientId = Guid.NewGuid().ToString();
                         _ingredientRepo.CreateIngredient(new Ingredient()
-                            {
-                                Id = ingredientId,
-                                Name = ingredient.IngredientName
-                            }
+                        {
+                            Id = ingredientId,
+                            Name = ingredient.IngredientName
+                        }
                         );
                     }
 
                     ri.Add(new RecipeIngredient()
-                        {
-                            Amount = ingredient.IngredientAmount,
-                            NormalizedAmount = ingredient.IngredientAmount.ToUpperInvariant(),
-                            IngredientId = ingredientId,
-                            RecipeId = recipeId
-                        }
+                    {
+                        Amount = ingredient.IngredientAmount,
+                        NormalizedAmount = ingredient.IngredientAmount.ToUpperInvariant(),
+                        IngredientId = ingredientId,
+                        RecipeId = recipeId
+                    }
                     );
                 }
                 var dbRecipe = new Recipe()
@@ -118,6 +119,19 @@ namespace PotluckPantry.Controllers
         {
             recipeData.RecipeIngredients.Add(new RecipeIngredientModel());
             return PartialView("RecipeIngredients", recipeData);
+        }
+
+        [HttpGet]
+        public string GetAllRecipes()
+        {
+            var recipes = _repo.GetRecipes();
+            var json = JsonConvert.SerializeObject(
+                new
+                {
+                    operations = recipes
+                }
+                );
+            return json;
         }
     }
 }

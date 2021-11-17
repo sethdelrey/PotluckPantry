@@ -37,6 +37,11 @@ namespace PotluckPantry.Areas.Data.Accessors
             return _context.Recipes.ToList();
         }
 
+        public IEnumerable<Recipe> SearchRecipes(string searchKey)
+        {
+            return _context.Recipes.Where(r => r.Title.ToUpper().Contains(searchKey.ToUpper())).ToList();
+        }
+
         public void Save()
         {
             _context.SaveChanges();

@@ -13,6 +13,7 @@ namespace PotluckPantry.Areas.Data.Accessors
         public Recipe GetRecipe(string recipeId);
         public void DeleteRecipe(string recipeId);
         public void UpdateRecipe(string recipeId);
+        public IEnumerable<Recipe> SearchRecipes(string searchKey);
         public void CreateRepice(Recipe recipe);
         public void Save();
     }

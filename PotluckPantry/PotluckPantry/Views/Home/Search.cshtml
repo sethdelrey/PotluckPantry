@@ -1,9 +1,4 @@
-﻿@model HomeModel
-@{
-    ViewData["Title"] = "Home Page";
-}
-
-<div>
+﻿<div>
     <div class="container">
         <div class="row">
             @foreach (var recipe in Model.Recipes)
@@ -16,14 +11,14 @@
                         <div class="card-body">
                             <div class="card-text">
                                 <div>
-                                    Description: 
+                                    Description:
                                     <br />
                                     @recipe.Description
                                 </div>
                                 <div>
                                     Rating: 3/5
                                 </div>
-                                <br /> 
+                                <br />
                                 <div>
                                     <a asp-action="Index" asp-controller="Recipe" asp-route-id="@recipe.Id">See Full Recipe</a>
                                 </div>

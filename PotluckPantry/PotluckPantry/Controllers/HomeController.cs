@@ -26,10 +26,17 @@ namespace PotluckPantry.Controllers
 
         public IActionResult Index()
         {
-            
+            var recipes = _repo.GetRecipes();
+            foreach (var recipe in recipes)
+            {
+                if (recipe.Description.Length > 97)
+                {
+                    recipe.Description = recipe.Description.Substring(0, 97) + "...";
+                }
+            }
             return View(new HomeModel() 
             { 
-                Recipes = _repo.GetRecipes()
+                Recipes = recipes
             });
         }
 
@@ -42,6 +49,13 @@ namespace PotluckPantry.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        public IActionResult Search(string searchString)
+        {
+            var recipes = _repo.SearchRecipes(searchString);
+
+            return View("Index", new HomeModel() { Recipes = recipes });
         }
     }
 }
