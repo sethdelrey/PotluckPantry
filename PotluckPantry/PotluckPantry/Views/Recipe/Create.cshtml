@@ -1,5 +1,5 @@
-﻿@model NewRecipeModel
-
+﻿@model Recipe
+@using PotluckPantry.Areas.Data.Entities
 <div class="card">
     <div class="card-header">Add your recipe</div>
     <div class="card-body">
@@ -7,9 +7,9 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="card-text">
                 <div class="form-group">
-                    <label asp-for="Name">What is your recipe called?</label>
-                    <input asp-for="Name" />
-                    <span asp-validation-for="Name" class="text-danger"></span>
+                    <label asp-for="Title">What is your recipe called?</label>
+                    <input asp-for="Title" />
+                    <span asp-validation-for="Title" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="Description">What are the steps to cook your recipe?</label>

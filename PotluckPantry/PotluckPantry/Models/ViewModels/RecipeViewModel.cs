@@ -4,11 +4,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace PotluckPantry.Models
+namespace PotluckPantry.Models.ViewModels
 {
-    public class RecipeModel
+    public class RecipeViewModel : Recipe
     {
-        public Recipe Recipe { get; set; }
         public bool IsUsersRecipe { get; set; }
     }
 }

@@ -6,6 +6,7 @@ using PotluckPantry.Areas.Data.Accessors;
 using PotluckPantry.Areas.Data.Entities;
 using PotluckPantry.Areas.Data.Extension;
 using PotluckPantry.Models;
+using PotluckPantry.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,7 +36,13 @@ namespace PotluckPantry.Controllers
                 if (recipe != null)
                 {
                     var userRecipe = recipe.Id == User.GetLoggedInUserId<string>();
-                    return View(new RecipeModel() { Recipe = recipe, IsUsersRecipe = userRecipe });
+                    return View(new RecipeViewModel() {
+                        Title = recipe.Title,
+                        Description = recipe.Description,
+                        RecipeIngredients = recipe.RecipeIngredients,
+                        PostTime = recipe.PostTime,
+                        IsUsersRecipe = userRecipe 
+                    });
                 }
 
             }
@@ -47,23 +54,23 @@ namespace PotluckPantry.Controllers
         [Authorize]
         public IActionResult Create()
         {
-            return View(new NewRecipeModel());
+            return View(new Recipe());
         }
 
         [Authorize]
-        public IActionResult CreateRecipe(NewRecipeModel recipeData)
+        public IActionResult CreateRecipe(Recipe recipeData)
         {
             if (ModelState.IsValid)
             {
                 var recipeId = Guid.NewGuid().ToString();
 
                 List<RecipeIngredient> ri = new();
-                foreach (var ingredient in recipeData.RecipeIngredients)
+                foreach (var recipeIngredient in recipeData.RecipeIngredients)
                 {
                     var ingredientId = "";
-                    if (_ingredientRepo.DoesIngredientExist(ingredient.IngredientName))
+                    if (_ingredientRepo.DoesIngredientExist(recipeIngredient.Ingredient.Name))
                     {
-                        var ingridientFromRepo = _ingredientRepo.GetIngredientByName(ingredient.IngredientName);
+                        var ingridientFromRepo = _ingredientRepo.GetIngredientByName(recipeIngredient.Ingredient.Name);
                         ingredientId = ingridientFromRepo.Id;
                     }
                     else
@@ -72,24 +79,23 @@ namespace PotluckPantry.Controllers
                         _ingredientRepo.CreateIngredient(new Ingredient()
                         {
                             Id = ingredientId,
-                            Name = ingredient.IngredientName
+                            Name = recipeIngredient.Ingredient.Name
                         }
                         );
                     }
 
                     ri.Add(new RecipeIngredient()
                     {
-                        Amount = ingredient.IngredientAmount,
-                        NormalizedAmount = ingredient.IngredientAmount.ToUpperInvariant(),
+                        Amount = recipeIngredient.Amount,
+                        NormalizedAmount = recipeIngredient.Amount.ToUpperInvariant(),
                         IngredientId = ingredientId,
                         RecipeId = recipeId
                     }
                     );
                 }
-                var dbRecipe = new Recipe()
+                var dbRecipe = new Recipe(recipeData.Title)
                 {
                     Id = recipeId,
-                    Title = recipeData.Name,
                     Description = recipeData.Description,
                     PostTime = DateTime.Now,
                     RecipeIngredients = ri
@@ -128,14 +134,15 @@ namespace PotluckPantry.Controllers
         [Authorize]
         public int Delete(string id)
         {
-
+            //if (_userManager)
+            _repo.DeleteRecipe(id);
             return -1;
         }
 
         [HttpPost]
-        public IActionResult AddIngredient([Bind("RecipeIngredients")] NewRecipeModel recipeData)
+        public IActionResult AddIngredient([Bind("RecipeIngredients")] Recipe recipeData)
         {
-            recipeData.RecipeIngredients.Add(new RecipeIngredientModel());
+            recipeData.RecipeIngredients.Add(new RecipeIngredient());
             return PartialView("RecipeIngredients", recipeData);
         }
 

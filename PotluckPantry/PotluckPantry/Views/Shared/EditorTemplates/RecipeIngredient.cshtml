@@ -1,0 +1,19 @@
+﻿@model RecipeIngredient
+@using PotluckPantry.Areas.Data.Entities
+<div class="row">
+    <div class="col-md-4">
+        <div class="form-group">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <label asp-for="Ingredient.Name" class="control-label"></label>
+            <input asp-for="Ingredient.Name" class="form-control" />
+            <span asp-validation-for="Ingredient.Name" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label asp-for="Amount" class="control-label"></label>
+            <input asp-for="Amount" class="form-control" />
+            <span asp-validation-for="Amount" class="text-danger"></span>
+        </div>
+    </div>
+</div>

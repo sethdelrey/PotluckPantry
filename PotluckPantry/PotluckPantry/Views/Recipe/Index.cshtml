@@ -1,4 +1,5 @@
-﻿@model RecipeModel
+﻿@model Recipe
+@using PotluckPantry.Areas.Data.Entities
 @{
     ViewData["Title"] = "Recipe";
 }
@@ -52,7 +53,7 @@
 </style>
 <div class="card">
     <div class="card-header">
-        <h2>@Model.Recipe.Title</h2>
+        <h2>@Model.Title</h2>
         <div class="rate" style="float:right;">
             <input type="radio" id="star5" name="rate" value="5" />
             <label for="star5" title="text">5 stars</label>
@@ -71,7 +72,7 @@
         <div>
             <h3>Ingredients</h3>
             <ul>
-                @foreach (var ingredient in Model.Recipe.RecipeIngredients)
+                @foreach (var ingredient in Model.RecipeIngredients)
                 {
                     <li>
                         @ingredient.Ingredient.Name : @ingredient.Amount
@@ -83,7 +84,7 @@
         <!-- Decription Start-->
         <div>
             <h3>Steps</h3>
-            <div>@Model.Recipe.Description</div>
+            <div>@Model.Description</div>
         </div>
         <!-- Decription Start-->
     </div>

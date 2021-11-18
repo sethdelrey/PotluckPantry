@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
-using static PotluckPantry.Data.ApplicationDbContext;
 
 namespace PotluckPantry.Areas.Data.Entities
 {
@@ -20,9 +17,14 @@ namespace PotluckPantry.Areas.Data.Entities
         public DateTime PostTime { get; set; }
         public virtual List<RecipeIngredient> RecipeIngredients { get; set; }
 
-/*        public Recipe()
+        public Recipe()
         {
             RecipeIngredients = new List<RecipeIngredient>();
-        }*/
+        }
+
+        public Recipe(string title)
+        {
+            this.Title = title;
+        }
     }
 }

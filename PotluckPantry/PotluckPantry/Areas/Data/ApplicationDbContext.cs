@@ -39,7 +39,7 @@ namespace PotluckPantry.Data
                 .WithMany(i => i.RecipeIngredients)
                 .HasForeignKey(ri => ri.IngredientId);
 
-            var ingredients = new[]
+            /*var ingredients = new[]
             {
                 new Ingredient() 
                 {
@@ -86,18 +86,8 @@ namespace PotluckPantry.Data
 
             builder.Entity<Ingredient>().HasData(ingredients);
             builder.Entity<Recipe>().HasData(recipe);
-            builder.Entity<RecipeIngredient>().HasData(ponceIngredients);
+            builder.Entity<RecipeIngredient>().HasData(ponceIngredients);*/
             base.OnModelCreating(builder);
-        }
-
-        public class RecipeIngredient
-        {
-            public string RecipeId { get; set; }
-            public Recipe Recipe { get; set; }
-            public string IngredientId { get; set; }
-            public Ingredient Ingredient { get; set; }
-            public string Amount { get; set; }
-            public string NormalizedAmount { get; set; }
         }
     }
 

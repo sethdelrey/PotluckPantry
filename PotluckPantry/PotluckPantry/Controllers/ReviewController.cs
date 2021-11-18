@@ -12,5 +12,11 @@ namespace PotluckPantry.Controllers
         {
             return View();
         }
+
+        public IActionResult Review()
+        {
+
+            return null;
+        }
     }
 }
