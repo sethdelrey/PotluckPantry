@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using PotluckPantry.Areas.Data.Accessors;
@@ -43,11 +44,13 @@ namespace PotluckPantry.Controllers
             return View();
         }
 
+        [Authorize]
         public IActionResult Create()
         {
             return View(new NewRecipeModel());
         }
 
+        [Authorize]
         public IActionResult CreateRecipe(NewRecipeModel recipeData)
         {
             if (ModelState.IsValid)
@@ -102,12 +105,27 @@ namespace PotluckPantry.Controllers
             return View(recipeData);
         }
 
-        public int Update()
+        /*public IActionResult Update(string id)
         {
+            Recipe recipe = _repo.GetRecipe(id);
 
-            return -1;
+
+            return View("Edit", new RecipeModel() { Recipe = recipe });
         }
 
+        [Authorize]
+        public int Update(NewRecipeModel data)
+        {
+            var recipe = _repo.GetRecipe(data.Id);
+            recipe.Title = data.Name;
+            recipe.RecipeIngredients = data.RecipeIngredients;
+            recipe.Description = data.Description;
+            _repo.UpdateRecipe(recipe);
+
+            return -1;
+        }*/
+
+        [Authorize]
         public int Delete(string id)
         {
 

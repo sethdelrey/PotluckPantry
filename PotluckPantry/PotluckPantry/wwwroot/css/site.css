@@ -77,7 +77,7 @@ body {
 }
 
 .recipe-grid {
-    /*min-height: 200px;
+    /*min-height: 200px; 
     min-width: 200px;
     max-height: 250px;
     max-width: 250px;*/
@@ -85,4 +85,31 @@ body {
 
 .card-body ul {
     padding-left: 1.25rem;
+}
+
+html, body, header, nav, .card-body {
+    background-color:#ebddcb;
+}
+
+.card {
+    border-radius: 0rem;
+    border: 1px solid #D7552A;
+    background-color: #EBDDCB;
+}
+
+.card-header {
+    background-color: #D7552A;
+    color: #EBDDCB;
+    border-radius: 0px !important;
+}
+
+a {
+    color: #484c49;
+}
+
+#searchBar {
+    position: absolute;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
 }

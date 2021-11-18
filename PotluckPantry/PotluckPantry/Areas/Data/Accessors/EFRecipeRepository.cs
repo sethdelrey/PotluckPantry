@@ -47,9 +47,9 @@ namespace PotluckPantry.Areas.Data.Accessors
             _context.SaveChanges();
         }
 
-        public void UpdateRecipe(string recipeId)
+        public void UpdateRecipe(Recipe recipe)
         {
-            throw new NotImplementedException();
+            _context.Recipes.Update(recipe);
         }
     }
 }
