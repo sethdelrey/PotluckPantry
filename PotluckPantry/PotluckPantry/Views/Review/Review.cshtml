@@ -4,13 +4,14 @@
 <div class="card">
     <div class="card-header">Write your review</div>
     <div class="card-body">
-        <form asp-action="Review" asp-controller="Review" id="form">
+        <form asp-action="Review" asp-controller="Review" id="reviewForm">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="card-text">
                 <div class="form-group">
                     <label asp-for="Description">What did you think of the recipe?</label>
                     <textarea asp-for="Description" class="form-control"></textarea>
                     <span asp-validation-for="Description" class="text-danger"></span>
+                    <input asp-for="RecipeId" type="hidden" value="@Model.RecipeId"/>
                 </div>
                 <div class="form-group" style="padding-bottom:20px;">
                     <style>
@@ -18,73 +19,93 @@
                             float: left;
                         }
 
-                        .rating:not(:checked) > input {
-                            position: absolute;
-                            top: -9999px;
-                            clip: rect(0,0,0,0);
-                        }
-
-                        .rating:not(:checked) > label {
-                            float: right;
-                            width: 1em;
-                            padding: 0 .1em;
-                            overflow: hidden;
-                            white-space: nowrap;
-                            cursor: pointer;
-                            font-size: 200%;
-                            line-height: 1.2;
-                            color: #ddd;
-                            text-shadow: 1px 1px #bbb, 2px 2px #666, .1em .1em .2em rgba(0,0,0,.5);
-                        }
-
-                            .rating:not(:checked) > label:before {
-                                content: '★ ';
+                            .rating:not(:checked) > input {
+                                position: absolute;
+                                top: -9999px;
+                                clip: rect(0,0,0,0);
                             }
 
-                        .rating > input:checked ~ label {
-                            color: #f70;
-                            text-shadow: 1px 1px #c60, 2px 2px #940, .1em .1em .2em rgba(0,0,0,.5);
-                        }
+                            .rating:not(:checked) > label {
+                                float: right;
+                                width: 1em;
+                                padding: 0 .1em;
+                                overflow: hidden;
+                                white-space: nowrap;
+                                cursor: pointer;
+                                font-size: 200%;
+                                line-height: 1.2;
+                                color: #ddd;
+                                text-shadow: 1px 1px #bbb, 2px 2px #666, .1em .1em .2em rgba(0,0,0,.5);
+                            }
 
-                        .rating:not(:checked) > label:hover,
-                        .rating:not(:checked) > label:hover ~ label {
-                            color: gold;
-                            text-shadow: 1px 1px goldenrod, 2px 2px #B57340, .1em .1em .2em rgba(0,0,0,.5);
-                        }
+                                .rating:not(:checked) > label:before {
+                                    content: '★ ';
+                                }
 
-                        .rating > input:checked + label:hover,
-                        .rating > input:checked + label:hover ~ label,
-                        .rating > input:checked ~ label:hover,
-                        .rating > input:checked ~ label:hover ~ label,
-                        .rating > label:hover ~ input:checked ~ label {
-                            color: #ea0;
-                            text-shadow: 1px 1px goldenrod, 2px 2px #B57340, .1em .1em .2em rgba(0,0,0,.5);
-                        }
+                            .rating > input:checked ~ label {
+                                color: #f70;
+                                text-shadow: 1px 1px #c60, 2px 2px #940, .1em .1em .2em rgba(0,0,0,.5);
+                            }
 
-                        .rating > label:active {
-                            position: relative;
-                            top: 2px;
-                            left: 2px;
-                        }
+                            .rating:not(:checked) > label:hover,
+                            .rating:not(:checked) > label:hover ~ label {
+                                color: gold;
+                                text-shadow: 1px 1px goldenrod, 2px 2px #B57340, .1em .1em .2em rgba(0,0,0,.5);
+                            }
 
+                            .rating > input:checked + label:hover,
+                            .rating > input:checked + label:hover ~ label,
+                            .rating > input:checked ~ label:hover,
+                            .rating > input:checked ~ label:hover ~ label,
+                            .rating > label:hover ~ input:checked ~ label {
+                                color: #ea0;
+                                text-shadow: 1px 1px goldenrod, 2px 2px #B57340, .1em .1em .2em rgba(0,0,0,.5);
+                            }
+
+                            .rating > label:active {
+                                position: relative;
+                                top: 2px;
+                                left: 2px;
+                            }
                     </style>
                     <fieldset class="rating">
                         <legend>How many stars?:</legend>
-                        <input asp-for="Score" type="radio" name="rating" value="5" /><label for="star5" title="Rocks!">5 stars</label>
-                        <input asp-for="Score" type="radio" name="rating" value="4" /><label for="star4" title="Pretty good">4 stars</label>
-                        <input asp-for="Score" type="radio" name="rating" value="3" /><label for="star3" title="Meh">3 stars</label>
-                        <input asp-for="Score" type="radio" name="rating" value="2" /><label for="star2" title="Kinda bad">2 stars</label>
-                        <input asp-for="Score" type="radio" name="rating" value="1" /><label for="star1" title="Sucks big time">1 star</label>
+                        <input type="radio" id="star5" name="rating" value="5" /><label for="star5" title="Rocks!">5 stars</label>
+                        <input type="radio" id="star4" name="rating" value="4" /><label for="star4" title="Pretty good">4 stars</label>
+                        <input type="radio" id="star3" name="rating" value="3" /><label for="star3" title="Meh">3 stars</label>
+                        <input type="radio" id="star2" name="rating" value="2" /><label for="star2" title="Kinda bad">2 stars</label>
+                        <input type="radio" id="star1" name="rating" value="1" /><label for="star1" title="Sucks big time">1 star</label>
                     </fieldset>
+                    <input asp-for="Score" type="hidden" />
+                    <span id="ScoreValidation" asp-validation-for="Score" class="text-danger"></span>
                 </div>
                 <div class="clearfix"></div>
                 <div class="form-group">
-                        <button class="btn btn-primary" type="submit">Submit</button>
+                    <button class="btn btn-primary" type="submit">Submit</button>
                 </div>
             </div>
         </form>
     </div>
 </div>
 
-<script>
-</script>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        $(document).ready(function () {
+            $("form#reviewForm").submit(function (e) {
+                console.log("Form submitted");
+                //e.preventDefault(); // prevent the default click action from being performed
+                if ($("#reviewForm :radio:checked").length == 0) {
+                    console.log("Zero: " + $('input:radio[name=rating]:checked').val());
+                    $('#ScoreValidation').html("You need to select a rating.");
+                    return false;
+                } else {
+                    console.log("Not zero: " + $('input:radio[name=rating]:checked').val());
+                    document.getElementById("Score").value = $('input:radio[name=rating]:checked').val();
+                    document.getElementById("reviewForm").submit();
+                }
+            });
+        });
+    </script>
+
+}

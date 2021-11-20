@@ -19,7 +19,9 @@ namespace PotluckPantry.Areas.Data.Accessors
 
         public void DeleteReview(string reviewId)
         {
-            throw new NotImplementedException();
+            Review review = new() { Id = reviewId };
+            _context.Reviews.Attach(review);
+            _context.Reviews.Remove(review);
         }
 
         public Review GetReview(string reviewId)
@@ -34,12 +36,12 @@ namespace PotluckPantry.Areas.Data.Accessors
 
         public void UpdateReview(Review review)
         {
-            throw new NotImplementedException();
+            _context.Reviews.Update(review);
         }
 
         public void CreateReview(Review review)
         {
-            throw new NotImplementedException();
+            _context.Reviews.Add(review);
         }
     }
 }
