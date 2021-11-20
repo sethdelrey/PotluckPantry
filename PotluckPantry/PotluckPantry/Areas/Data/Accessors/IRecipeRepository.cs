@@ -15,6 +15,7 @@ namespace PotluckPantry.Areas.Data.Accessors
         public void UpdateRecipe(Recipe recipe);
         public IEnumerable<Recipe> SearchRecipes(string searchKey);
         public void CreateRepice(Recipe recipe);
+        public IEnumerable<Recipe> GetRecipesByUser(string userId);
         public void Save();
     }
 }

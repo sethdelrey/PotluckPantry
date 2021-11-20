@@ -68,6 +68,7 @@ namespace PotluckPantry.Controllers
                 recipe.Id = Guid.NewGuid().ToString();
                 recipe.PostTime = DateTime.Now;
                 recipe.RecipeIngredients = _ingredientRepo.RecipeIngredientMapper(recipe.RecipeIngredients, recipe.Id);
+                recipe.UserId = User.GetLoggedInUserId<string>();
                 _ingredientRepo.Save();
 
                 _repo.CreateRepice(recipe);

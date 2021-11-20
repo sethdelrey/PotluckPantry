@@ -39,13 +39,11 @@
             <h3>Steps</h3>
             <div>@Model.Description</div>
         </div>
-        <!-- Decription Start-->
-        <!-- Rating Start -->
-        <!-- Rating End -->
-        <!-- Buttons Start -->
         <br />
+        <!-- Decription Start-->
+        <!-- Buttons Start -->
         <div>
-            Author: <a asp-controller="User" asp-action="View" asp-route-username="@Model.User.UserName">@Model.User.UserName</a>
+            Author: <a asp-controller="User" asp-action="Index" asp-route-username="@Model.User.UserName">@Model.User.UserName</a>
         </div>
         <br />
         <div>
@@ -54,20 +52,3 @@
         <!-- Buttons End -->
     </div>
 </div>
-
-
-@section Scripts {
-    <!-- MAKE IT ACTUALLY REVIEW THE RECIPE-->
-    <script>
-        $('#star5').change(
-            function () {
-                if ($(this).val == 'Yes') {
-                    console.log('star5 checked');
-                }
-                else {
-                    console.log('star5 not checked?');
-                }
-            }
-        )
-    </script>
-}

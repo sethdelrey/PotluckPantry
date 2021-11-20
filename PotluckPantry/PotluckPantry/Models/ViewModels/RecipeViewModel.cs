@@ -9,5 +9,10 @@ namespace PotluckPantry.Models.ViewModels
     public class RecipeViewModel : Recipe
     {
         public bool IsUsersRecipe { get; set; }
+
+/*        public RecipeViewModel(Recipe recipe)
+        {
+            
+        }*/
     }
 }

@@ -53,5 +53,16 @@ namespace PotluckPantry.Areas.Data.Accessors
         {
             _context.Recipes.Update(recipe);
         }
+
+        public IEnumerable<Recipe> GetRecipesByUser(string userId)
+        {
+            if (!string.IsNullOrEmpty(userId))
+            {
+                var usersRecipes = _context.Recipes.AsNoTracking().Where(r => r.UserId.Equals(userId)).Include(r => r.RecipeIngredients).ThenInclude(ri => ri.Ingredient).ToList();
+                return usersRecipes;
+            }
+
+            return null;
+        }
     }
 }

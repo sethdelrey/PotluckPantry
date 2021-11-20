@@ -26,7 +26,7 @@ namespace PotluckPantry.Areas.Data.Accessors
 
         public Review GetReview(string reviewId)
         {
-            return _context.Reviews.AsNoTracking().Include(r => r.User).FirstOrDefault();
+            return _context.Reviews.AsNoTracking().Include(r => r.User).Where(r => r.Id.Equals(reviewId)).FirstOrDefault();
         }
 
         public void Save()

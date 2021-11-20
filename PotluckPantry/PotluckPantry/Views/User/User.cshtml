@@ -1,0 +1,37 @@
+﻿@model UserViewModel
+@using PotluckPantry.Models.ViewModels
+
+<h2>@Model.user.UserName</h2>
+<h3>Recipes</h3>
+
+<div class="container">
+    <div class="row">
+        @foreach (var recipe in Model.userRecipes)
+        {
+            <div class="col-sm-4">
+                <div class="card card-primary">
+                    <div class="card-header">
+                        @recipe.Title
+                    </div>
+                    <div class="card-body">
+                        <div class="card-text">
+                            <div>
+                                Description:
+                                <br />
+                                @recipe.Description
+                            </div>
+                            <br />
+                            <div>
+                                Rating: 3/5
+                            </div>
+                            <br />
+                            <div>
+                                <a asp-action="Index" asp-controller="Recipe" asp-route-id="@recipe.Id">See Full Recipe</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

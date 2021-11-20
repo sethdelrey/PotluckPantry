@@ -43,6 +43,7 @@ namespace PotluckPantry
             services.AddTransient<IRecipeRepository, EFRecipeRepository>();
             services.AddTransient<IIngredientRepository, EFIngredientRepository>();
             services.AddTransient<IReviewRepository, EFReviewRepository>();
+            services.AddTransient<IUserRepository, EFUserRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
