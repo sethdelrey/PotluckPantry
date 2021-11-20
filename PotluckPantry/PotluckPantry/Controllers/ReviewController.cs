@@ -1,22 +1,35 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using PotluckPantry.Areas.Data.Accessors;
+using PotluckPantry.Areas.Data.Entities;
 
 namespace PotluckPantry.Controllers
 {
     public class ReviewController : Controller
     {
-        public IActionResult Index()
+        public IRecipeRepository _recipeRepository { get; set; }
+        private IReviewRepository _reviewRepository { get; set; }
+
+        public ReviewController(IRecipeRepository recipeRepository, IReviewRepository reviewRepository)
         {
-            return View();
+            _recipeRepository = recipeRepository;
+            _reviewRepository = reviewRepository;
         }
 
-        public IActionResult Review()
+        public IActionResult Index(string recipeId)
         {
+            var recipe = _recipeRepository.GetRecipe(recipeId);
 
-            return null;
+            return View("Review", new Review() 
+            { 
+                Recipe = recipe
+            });
+        }
+
+        public IActionResult Review(Review review)
+        {
+            _reviewRepository.CreateReview(review);
+
+            return RedirectToAction("Index", "Recipe", new { id = review.RecipeId});
         }
     }
 }
