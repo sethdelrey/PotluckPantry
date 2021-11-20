@@ -49,6 +49,24 @@
         <div>
             <a class="btn btn-primary" asp-controller="Review" asp-action="Index" asp-route-recipeId="@Model.Id">Review Recipe</a>
         </div>
+        <br />
         <!-- Buttons End -->
+        @if (Model.RecipeReviews.Count() != 0)
+        {
+            <div class="card-footer"> 
+                @foreach (var review in Model.RecipeReviews)
+                {
+                    <div>
+                        <span><a asp-controller="User" asp-action="Index" asp-route-username="@review.User.UserName">@review.User.UserName</a></span>
+                        <span style="float:right;">@review.Score / 5</span>
+                    </div>
+                    <div>
+                        &nbsp; @review.Description
+                    </div>
+                    <hr />
+                }
+            </div>
+        }
     </div>
+
 </div>

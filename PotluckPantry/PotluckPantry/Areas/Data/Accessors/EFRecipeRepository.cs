@@ -54,6 +54,23 @@ namespace PotluckPantry.Areas.Data.Accessors
             _context.Recipes.Update(recipe);
         }
 
+        public void UpdateAverageScore(string recipeId, double newRating)
+        {
+            var recipe = GetRecipe(recipeId);
+            var reviewCount = _context.Reviews.AsNoTracking().Where(r => r.RecipeId.Equals(recipeId)).Count();
+            var newAvgScore = 0.0;
+            if (reviewCount == 0)
+            {
+                newAvgScore = newRating;
+            }
+            else
+            {
+                newAvgScore = Math.Round((recipe.AvgScore + newRating) / reviewCount, 1 );
+            }
+            recipe.AvgScore = newAvgScore;
+            UpdateRecipe(recipe);
+        }
+
         public IEnumerable<Recipe> GetRecipesByUser(string userId)
         {
             if (!string.IsNullOrEmpty(userId))

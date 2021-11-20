@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using PotluckPantry.Areas.Data.Accessors;
 using PotluckPantry.Areas.Data.Entities;
 using PotluckPantry.Areas.Data.Extension;
@@ -17,6 +18,7 @@ namespace PotluckPantry.Controllers
             _reviewRepository = reviewRepository;
         }
 
+        [Authorize]
         public IActionResult Index(string recipeId)
         {
             if (!string.IsNullOrEmpty(recipeId))
@@ -36,6 +38,7 @@ namespace PotluckPantry.Controllers
             return RedirectToAction("Error", "Home");
         }
 
+        [Authorize]
         public IActionResult Review(Review review)
         {
             if (review != null)
@@ -43,7 +46,10 @@ namespace PotluckPantry.Controllers
                 review.Id = Guid.NewGuid().ToString();
                 review.UserId = User.GetLoggedInUserId<string>();
                 review.ReviewTime = DateTime.Now;
+                _recipeRepository.UpdateAverageScore(review.RecipeId, review.Score);
                 _reviewRepository.CreateReview(review);
+
+                _reviewRepository.Save();
                 return RedirectToAction("Index", "Recipe", new { id = review.RecipeId });
             }
 

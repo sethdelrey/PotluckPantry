@@ -12,6 +12,7 @@ namespace PotluckPantry.Areas.Data.Accessors
         public void CreateReview(Review review);
         public void DeleteReview(string reviewId);
         public void UpdateReview(Review review);
+        public IEnumerable<Review> GetRecipesReviews(string recipeId);
         public void Save();
     }
 }

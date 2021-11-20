@@ -53,5 +53,17 @@
                 }
             });
         });
+        $("#btnDelete").on('click', function () {
+            $.ajax({
+                async: true,
+                data: $('#form').serialize(),
+                type: "POST",
+                url: '/Recipe/DeleteIngredient',
+                success: function (partialView) {
+                    console.log("partialView: " + partialView);
+                    $('#recipeIngredientsContainer').html(partialView);
+                }
+            });
+        });
     </script>
 }

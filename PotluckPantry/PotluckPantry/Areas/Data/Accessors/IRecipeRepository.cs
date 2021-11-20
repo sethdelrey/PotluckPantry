@@ -16,6 +16,7 @@ namespace PotluckPantry.Areas.Data.Accessors
         public IEnumerable<Recipe> SearchRecipes(string searchKey);
         public void CreateRepice(Recipe recipe);
         public IEnumerable<Recipe> GetRecipesByUser(string userId);
+        public void UpdateAverageScore(string recipeId, double newRating);
         public void Save();
     }
 }

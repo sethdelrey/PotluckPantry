@@ -21,15 +21,16 @@ namespace PotluckPantry.Areas.Data.Entities
         [DataType(DataType.DateTime)]
         public DateTime PostTime { get; set; }
         public virtual List<RecipeIngredient> RecipeIngredients { get; set; }
-        public int AvgScore { get; set; }
+        public double AvgScore { get; set; }
 
         public Recipe()
         {
-            RecipeIngredients = new List<RecipeIngredient>();
+            
         }
 
         public Recipe(string title)
         {
+            RecipeIngredients = new List<RecipeIngredient>() { new RecipeIngredient() };
             this.Title = title;
         }
     }

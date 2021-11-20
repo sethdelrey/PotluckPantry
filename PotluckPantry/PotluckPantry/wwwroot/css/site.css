@@ -91,7 +91,7 @@ html, body, header, nav, .card-body {
     background-color:#ebddcb;
 }
 
-.card {
+.card, .card-footer {
     border-radius: 0rem;
     border: 1px solid #D7552A;
     background-color: #EBDDCB;
@@ -104,6 +104,10 @@ html, body, header, nav, .card-body {
 }
 
 a {
+    color: #8D0028;
+}
+
+a:hover {
     color: #484c49;
 }
 

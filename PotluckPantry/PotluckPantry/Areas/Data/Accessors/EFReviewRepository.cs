@@ -43,5 +43,14 @@ namespace PotluckPantry.Areas.Data.Accessors
         {
             _context.Reviews.Add(review);
         }
+
+        public IEnumerable<Review> GetRecipesReviews(string recipeId)
+        {
+            if (!string.IsNullOrEmpty(recipeId))
+            {
+                return _context.Reviews.AsNoTracking().Where(r => r.RecipeId.Equals(recipeId)).Include(r => r.User).ToList();
+            }
+            return new List<Review>();
+        }
     }
 }
