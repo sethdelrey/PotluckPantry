@@ -24,7 +24,7 @@ namespace PotluckPantry.Areas.Data.Accessors
 
         public void DeleteRecipe(string recipeId)
         {
-            Recipe recipe = new Recipe() { Id = recipeId };
+            Recipe recipe = new() { Id = recipeId };
             _context.Recipes.Attach(recipe);
             _context.Recipes.Remove(recipe);
         }
