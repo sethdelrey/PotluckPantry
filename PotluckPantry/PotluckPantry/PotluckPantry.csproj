@@ -25,5 +25,8 @@
 			<Pack>$(IncludeRazorContentInPack)</Pack>
 		</Content>
 	</ItemGroup>
+	<ItemGroup>
+	  <Folder Include="Areas\Data\Helpers\" />
+	</ItemGroup>
 
 </Project>

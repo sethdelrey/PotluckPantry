@@ -24,12 +24,14 @@ namespace PotluckPantry.Areas.Data.Accessors
 
         public void DeleteRecipe(string recipeId)
         {
-            throw new NotImplementedException();
+            Recipe recipe = new Recipe() { Id = recipeId };
+            _context.Recipes.Attach(recipe);
+            _context.Recipes.Remove(recipe);
         }
 
         public Recipe GetRecipe(string recipeId)
         {
-            return _context.Recipes.AsNoTracking().Where(r => r.Id.Equals(recipeId)).Include(r => r.RecipeIngredients).ThenInclude(ri => ri.Ingredient).First();
+            return _context.Recipes.AsNoTracking().Where(r => r.Id.Equals(recipeId)).Include(r => r.User).Include(r => r.RecipeIngredients).ThenInclude(ri => ri.Ingredient).First();
         }
 
         public IEnumerable<Recipe> GetRecipes()

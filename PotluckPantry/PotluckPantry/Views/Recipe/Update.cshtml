@@ -1,12 +1,15 @@
 ﻿@model Recipe
 @using PotluckPantry.Areas.Data.Entities
+
 <div class="card">
-    <div class="card-header">Add your recipe</div>
+    <div class="card-header">Update your recipe</div>
     <div class="card-body">
-        <form asp-action="CreateRecipe" id="form">
+        <form asp-action="UpdateRecipe" id="form">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="card-text">
                 <div class="form-group">
+                    <input asp-for="Id" value="@Model.Id" type="hidden" />
+                    <input asp-for="UserId" value="@Model.UserId" type="hidden" />
                     <label asp-for="Title">What is your recipe called?</label>
                     <input asp-for="Title" />
                     <span asp-validation-for="Title" class="text-danger"></span>
@@ -22,9 +25,10 @@
                 <div class="row">
                     <div class="col-md-4">
                         <input class="btn btn-primary" type="button" id="btnAdd" value="Add ingredient" />
+                        <input class="btn btn-primary" type="button" id="btnDelete" value="Remove ingredient" />
                     </div>
                     <div class="col-md-2">
-                        <button class="btn btn-primary" type="submit">Submit</button>
+                        <button class="btn btn-primary" type="submit">Update</button>
                     </div>
                 </div>
             </div>
@@ -35,6 +39,8 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
     <script>
+
+
         $("#btnAdd").on('click', function () {
             $.ajax({
                 async: true,

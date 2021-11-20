@@ -15,5 +15,6 @@ namespace PotluckPantry.Areas.Data.Accessors
         public void UpdateIngredient(Ingredient ingredient);
         public void DeleteIngredient(string id);
         public void Save();
+        public List<RecipeIngredient> RecipeIngredientMapper(List<RecipeIngredient> recipeIngredients, string recipeId);
     }
 }

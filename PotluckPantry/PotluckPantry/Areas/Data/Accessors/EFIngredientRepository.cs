@@ -51,5 +51,40 @@ namespace PotluckPantry.Areas.Data.Accessors
         {
             throw new NotImplementedException();
         }
+
+        public List<RecipeIngredient> RecipeIngredientMapper(List<RecipeIngredient> recipeIngredients, string recipeId)
+        {
+            List<RecipeIngredient> ri = new();
+            foreach (var recipeIngredient in recipeIngredients)
+            {
+                string ingredientId;
+                if (DoesIngredientExist(recipeIngredient.Ingredient.Name))
+                {
+                    var ingridientFromRepo = GetIngredientByName(recipeIngredient.Ingredient.Name);
+                    ingredientId = ingridientFromRepo.Id;
+                }
+                else
+                {
+                    ingredientId = Guid.NewGuid().ToString();
+                    CreateIngredient(new Ingredient()
+                    {
+                        Id = ingredientId,
+                        Name = recipeIngredient.Ingredient.Name
+                    }
+                    );
+                }
+
+                ri.Add(new RecipeIngredient()
+                {
+                    Amount = recipeIngredient.Amount,
+                    NormalizedAmount = recipeIngredient.Amount.ToUpperInvariant(),
+                    IngredientId = ingredientId,
+                    RecipeId = recipeId
+                }
+                );
+            }
+
+            return ri;
+        }
     }
 }

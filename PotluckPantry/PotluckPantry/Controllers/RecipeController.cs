@@ -6,6 +6,7 @@ using PotluckPantry.Areas.Data.Accessors;
 using PotluckPantry.Areas.Data.Entities;
 using PotluckPantry.Areas.Data.Extension;
 using PotluckPantry.Models;
+using PotluckPantry.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,8 +35,17 @@ namespace PotluckPantry.Controllers
                 var recipe = _repo.GetRecipe(id);
                 if (recipe != null)
                 {
-                    var userRecipe = recipe.Id == User.GetLoggedInUserId<string>();
-                    return View(new RecipeModel() { Recipe = recipe, IsUsersRecipe = userRecipe });
+                    var userRecipe = recipe.UserId == User.GetLoggedInUserId<string>();
+                    return View(new RecipeViewModel() {
+                        Id = recipe.Id,
+                        UserId = recipe.UserId,
+                        User = recipe.User,
+                        Title = recipe.Title,
+                        Description = recipe.Description,
+                        RecipeIngredients = recipe.RecipeIngredients,
+                        PostTime = recipe.PostTime,
+                        IsUsersRecipe = userRecipe
+                    }); ;
                 }
 
             }
@@ -47,95 +57,76 @@ namespace PotluckPantry.Controllers
         [Authorize]
         public IActionResult Create()
         {
-            return View(new NewRecipeModel());
+            return View(new Recipe());
         }
 
         [Authorize]
-        public IActionResult CreateRecipe(NewRecipeModel recipeData)
+        public IActionResult CreateRecipe(Recipe recipe)
+        {
+            if (ModelState.IsValid)
+            {   
+                recipe.Id = Guid.NewGuid().ToString();
+                recipe.PostTime = DateTime.Now;
+                recipe.RecipeIngredients = _ingredientRepo.RecipeIngredientMapper(recipe.RecipeIngredients, recipe.Id);
+                _ingredientRepo.Save();
+
+                _repo.CreateRepice(recipe);
+                _repo.Save();
+
+                return RedirectToAction(nameof(Index), new { id = recipe.Id });
+            }
+
+            return View("Create", recipe);
+        }
+
+        public IActionResult Update(string Id)
+        {
+            Recipe recipe = _repo.GetRecipe(Id);
+
+
+            return View("Update", recipe);
+        }
+
+        [Authorize]
+        public IActionResult UpdateRecipe(Recipe recipe)
         {
             if (ModelState.IsValid)
             {
-                var recipeId = Guid.NewGuid().ToString();
-
-                List<RecipeIngredient> ri = new();
-                foreach (var ingredient in recipeData.RecipeIngredients)
+                if (recipe != null)
                 {
-                    var ingredientId = "";
-                    if (_ingredientRepo.DoesIngredientExist(ingredient.IngredientName))
-                    {
-                        var ingridientFromRepo = _ingredientRepo.GetIngredientByName(ingredient.IngredientName);
-                        ingredientId = ingridientFromRepo.Id;
-                    }
-                    else
-                    {
-                        ingredientId = Guid.NewGuid().ToString();
-                        _ingredientRepo.CreateIngredient(new Ingredient()
-                        {
-                            Id = ingredientId,
-                            Name = ingredient.IngredientName
-                        }
-                        );
-                    }
-
-                    ri.Add(new RecipeIngredient()
-                    {
-                        Amount = ingredient.IngredientAmount,
-                        NormalizedAmount = ingredient.IngredientAmount.ToUpperInvariant(),
-                        IngredientId = ingredientId,
-                        RecipeId = recipeId
-                    }
-                    );
+                    var recipeIngredients = _ingredientRepo.RecipeIngredientMapper(recipe.RecipeIngredients, recipe.Id);
+                    _ingredientRepo.Save();
+                    recipe.RecipeIngredients = recipeIngredients;
+                    _repo.UpdateRecipe(recipe);
                 }
-                var dbRecipe = new Recipe()
-                {
-                    Id = recipeId,
-                    Title = recipeData.Name,
-                    Description = recipeData.Description,
-                    PostTime = DateTime.Now,
-                    RecipeIngredients = ri
-                };
 
-                _repo.CreateRepice(dbRecipe);
-                _ingredientRepo.Save();
-                _repo.Save();
 
-                return RedirectToAction(nameof(Index), new { id = recipeId });
+                return RedirectToAction(nameof(Index), new { id = recipe.Id });
             }
 
-            return View(recipeData);
-        }
-
-        /*public IActionResult Update(string id)
-        {
-            Recipe recipe = _repo.GetRecipe(id);
-
-
-            return View("Edit", new RecipeModel() { Recipe = recipe });
+            return View("Update", recipe);
         }
 
         [Authorize]
-        public int Update(NewRecipeModel data)
+        public IActionResult Delete(string id)
         {
-            var recipe = _repo.GetRecipe(data.Id);
-            recipe.Title = data.Name;
-            recipe.RecipeIngredients = data.RecipeIngredients;
-            recipe.Description = data.Description;
-            _repo.UpdateRecipe(recipe);
+            var userId = User.GetLoggedInUserId<string>();
+            if (!string.IsNullOrEmpty(id))
+            {
+                var recipe = _repo.GetRecipe(id);
+                if (recipe != null && recipe.UserId.Equals(userId)) {
+                    _repo.DeleteRecipe(id);
+                    _repo.Save();
+                }
+            }
 
-            return -1;
-        }*/
-
-        [Authorize]
-        public int Delete(string id)
-        {
-
-            return -1;
+            return RedirectToAction("Index", "Home");
         }
 
         [HttpPost]
-        public IActionResult AddIngredient([Bind("RecipeIngredients")] NewRecipeModel recipeData)
+        public IActionResult AddIngredient([Bind("RecipeIngredients")] Recipe recipeData)
         {
-            recipeData.RecipeIngredients.Add(new RecipeIngredientModel());
+            recipeData.RecipeIngredients.Add(new RecipeIngredient());
             return PartialView("RecipeIngredients", recipeData);
         }
 
