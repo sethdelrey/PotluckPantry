@@ -98,6 +98,7 @@ namespace PotluckPantry.Controllers
                     _ingredientRepository.Save();
                     recipe.RecipeIngredients = recipeIngredients;
                     _recipeRepository.UpdateRecipe(recipe);
+                    _recipeRepository.Save();
                 }
 
 

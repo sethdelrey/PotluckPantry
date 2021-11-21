@@ -17,6 +17,7 @@ namespace PotluckPantry.Areas.Data.Accessors
         public void CreateRepice(Recipe recipe);
         public IEnumerable<Recipe> GetRecipesByUser(string userId);
         public void UpdateAverageScore(string recipeId, double newRating);
+        public IEnumerable<Recipe> GetRecipesByCategory(RecipeCategory category);
         public void Save();
     }
 }

@@ -70,6 +70,10 @@ namespace PotluckPantry.Areas.Data.Accessors
             recipe.AvgScore = newAvgScore;
             UpdateRecipe(recipe);
         }
+        public IEnumerable<Recipe> GetRecipesByCategory(RecipeCategory category)
+        {
+            return _context.Recipes.Where(r => r.Category.Equals(category)).ToList();
+        }
 
         public IEnumerable<Recipe> GetRecipesByUser(string userId)
         {

@@ -21,6 +21,7 @@ namespace PotluckPantry.Models.ViewModels
             this.RecipeIngredients = recipe.RecipeIngredients;
             this.UserId = recipe.UserId;
             this.User = recipe.User;
+            this.Category = recipe.Category;
         }
     }
 }

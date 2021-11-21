@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace PotluckPantry.Areas.Data.Entities
@@ -22,7 +23,11 @@ namespace PotluckPantry.Areas.Data.Entities
         public DateTime PostTime { get; set; }
         public virtual List<RecipeIngredient> RecipeIngredients { get; set; }
         public double AvgScore { get; set; }
+        [DisplayName("What is the cuisine of the recipe?")]
+        [Required(ErrorMessage = "Please select one.")]
+        public RecipeCategory Category { get; set; }
 
+        
         public Recipe()
         {
             
