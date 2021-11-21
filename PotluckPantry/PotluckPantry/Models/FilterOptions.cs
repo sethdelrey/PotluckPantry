@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace PotluckPantry.Models
 {
-    public class HomeModel
+    public class FilterOptions
     {
-        public IEnumerable<Recipe> Recipes { get; set; }
-        public FilterOptions FilterOptions { get; set; }
+        public RecipeCategory Category { get; set; }
+        public int MinAvgRating { get; set; }
     }
 }

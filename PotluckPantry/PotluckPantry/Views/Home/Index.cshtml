@@ -1,42 +1,118 @@
 ﻿@model HomeModel
+@using PotluckPantry.Areas.Data.Entities
 @{
     ViewData["Title"] = "Home Page";
 }
 
-<div>
-    <div class="container">
-        <div class="row">
-            @foreach (var recipe in Model.Recipes)
-            {
-                <div class="col-sm-4">
-                    <div class="card card-primary">
-                        <div class="card-header">
-                            @recipe.Title
+<div class="card card-primary">
+    <div class="card-header">
+        <h2 class="mb-0">
+            <a class="LightLink" data-toggle="collapse" href="#filterCollapse" aria-expanded="true" aria-controls="filterCollapse">
+                Filter Options
+            </a>
+        </h2>
+    </div>
+    <div id="filterCollapse" class="collapse">
+        <div class="card-body">
+            <form id="filterForm">
+                <label asp-for="FilterOptions.Category"></label>
+                @{ 
+                    var all = new SelectListItem("All", "All");
+                    }
+                <select asp-for="FilterOptions.Category" asp-items="(Html.GetEnumSelectList<RecipeCategory>().Append(all)).OrderBy(i => i.Text)"></select>
+
+                <input type="submit" />
+            </form>
+        </div>
+    </div>
+</div>
+<div class="row">
+    @foreach (var recipe in Model.Recipes)
+    {
+        <div class="col-sm-4 filterDiv @recipe.Category">
+            <div class="card card-primary">
+                <div class="card-header">
+                    @recipe.Title
+                </div>
+                <div class="card-body">
+                    <div class="card-text">
+                        <div>
+                            Description:
+                            <br />
+                            @recipe.Description
                         </div>
-                        <div class="card-body">
-                            <div class="card-text">
-                                <div>
-                                    Description:
-                                    <br />
-                                    @recipe.Description
-                                </div>
-                                <br />
-                                @if (recipe.AvgScore != 0)
-                                {
-                                    <div>
-                                        Rating: @recipe.AvgScore / 5
-                                    </div>
-                                    <br />
-                                }
-                                <div>
-                                    <a asp-action="Index" asp-controller="Recipe" asp-route-id="@recipe.Id">See Full Recipe</a>
-                                </div>
+                        <br />
+                        @if (recipe.AvgScore != 0)
+                        {
+                            <div>
+                                Rating: @recipe.AvgScore / 5
                             </div>
+                            <br />
+                        }
+                        <div>
+                            <a asp-action="Index" asp-controller="Recipe" asp-route-id="@recipe.Id">See Full Recipe</a>
                         </div>
                     </div>
                 </div>
-            }
+            </div>
         </div>
-    </div>
-
+    }
 </div>
+
+
+@section Scripts {
+<script>
+    filterSelection("All")
+    $(document).ready(function () {
+        $("form#filterForm").submit(function (e) {
+            console.log("Form submitted");
+            e.preventDefault(); // prevent the default click action from being performed
+            document.getElementById("")
+            var filterCatagory = $("#FilterOptions_Category option:selected").text();
+            console.log(filterCatagory);
+            filterSelection(filterCatagory);
+        });
+        
+    });
+
+    
+    function filterSelection(c) {
+        console.log(c);
+        var x, i;
+        x = document.getElementsByClassName("filterDiv");
+        if (c == "All") c = "";
+        // Add the "show" class (display:block) to the filtered elements, and remove the "show" class from the elements that are not selected
+        for (i = 0; i < x.length; i++) {
+            w3RemoveClass(x[i], "show");
+            if (x[i].className.indexOf(c) > -1) w3AddClass(x[i], "show");
+        }
+    }
+
+    // Show filtered elements
+    function w3AddClass(element, name) {
+        var i, arr1, arr2;
+        arr1 = element.className.split(" ");
+        arr2 = name.split(" ");
+        for (i = 0; i < arr2.length; i++) {
+            if (arr1.indexOf(arr2[i]) == -1) {
+                element.className += " " + arr2[i];
+            }
+        }
+    }
+
+    // Hide elements that are not selected
+    function w3RemoveClass(element, name) {
+        var i, arr1, arr2;
+        arr1 = element.className.split(" ");
+        arr2 = name.split(" ");
+        for (i = 0; i < arr2.length; i++) {
+            while (arr1.indexOf(arr2[i]) > -1) {
+                arr1.splice(arr1.indexOf(arr2[i]), 1);
+            }
+        }
+        element.className = arr1.join(" ");
+    }
+</script>
+
+}
+
