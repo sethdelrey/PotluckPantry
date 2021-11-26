@@ -1,5 +1,8 @@
 ﻿@model Review
 @using PotluckPantry.Areas.Data.Entities
+@{
+    ViewData["Title"] = "Review";
+}
 
 <div class="card">
     <div class="card-header">Write your review</div>
@@ -11,7 +14,7 @@
                     <label asp-for="Description">What did you think of the recipe?</label>
                     <textarea asp-for="Description" class="form-control"></textarea>
                     <span asp-validation-for="Description" class="text-danger"></span>
-                    <input asp-for="RecipeId" type="hidden" value="@Model.RecipeId"/>
+                    <input asp-for="RecipeId" type="hidden" value="@Model.RecipeId" />
                 </div>
                 <div class="form-group" style="padding-bottom:20px;">
                     <style>

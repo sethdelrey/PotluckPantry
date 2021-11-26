@@ -1,5 +1,8 @@
 ﻿@model Recipe
 @using PotluckPantry.Areas.Data.Entities
+@{
+    ViewData["Title"] = "Create";
+}
 <div class="card">
     <div class="card-header">Add your recipe</div>
     <div class="card-body">
@@ -21,6 +24,12 @@
                     <select asp-for="Category" asp-items="Html.GetEnumSelectList<RecipeCategory>()">
                     </select>
                     <span asp-validation-for="Category" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Meat"></label>
+                    <select asp-for="Meat" asp-items="Html.GetEnumSelectList<RecipeMeat>()">
+                    </select>
+                    <span asp-validation-for="Meat" class="text-danger"></span>
                 </div>
                 <div id="recipeIngredientsContainer">
                     @Html.EditorFor(model => model.RecipeIngredients)

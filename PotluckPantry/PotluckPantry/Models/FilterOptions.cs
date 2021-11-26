@@ -9,6 +9,7 @@ namespace PotluckPantry.Models
     public class FilterOptions
     {
         public RecipeCategory Category { get; set; }
+        public RecipeMeat Meat { get; set; }
         public int MinAvgRating { get; set; }
     }
 }

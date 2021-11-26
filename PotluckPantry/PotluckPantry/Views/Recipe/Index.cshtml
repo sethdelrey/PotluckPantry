@@ -43,6 +43,9 @@
         <div>
             Category: @Model.Category
         </div>
+        <div>
+            Meat: @Model.Meat
+        </div>
         <!-- Decription Start-->
         <!-- Buttons Start -->
         <div>
@@ -56,7 +59,7 @@
         <!-- Buttons End -->
         @if (Model.RecipeReviews.Count() != 0)
         {
-            <div class="card-footer"> 
+            <div class="card-footer">
                 @foreach (var review in Model.RecipeReviews)
                 {
                     <div>

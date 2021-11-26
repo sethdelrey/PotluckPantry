@@ -15,12 +15,14 @@
     <div id="filterCollapse" class="collapse">
         <div class="card-body">
             <form id="filterForm">
-                <label asp-for="FilterOptions.Category"></label>
-                @{ 
+                @{
                     var all = new SelectListItem("All", "All");
-                    }
+                }
+                <label asp-for="FilterOptions.Category"></label>
                 <select asp-for="FilterOptions.Category" asp-items="(Html.GetEnumSelectList<RecipeCategory>().Append(all)).OrderBy(i => i.Text)"></select>
-
+                <br />
+                <label asp-for="FilterOptions.Meat"></label>
+                <select asp-for="FilterOptions.Meat" asp-items="(Html.GetEnumSelectList<RecipeMeat>().Append(all)).OrderBy(i => i.Text)"></select>
                 <input type="submit" />
             </form>
         </div>
@@ -29,7 +31,7 @@
 <div class="row">
     @foreach (var recipe in Model.Recipes)
     {
-        <div class="col-sm-4 filterDiv @recipe.Category">
+        <div class="col-sm-4 filterDiv @recipe.Category @recipe.Meat">
             <div class="card card-primary">
                 <div class="card-header">
                     @recipe.Title
@@ -69,8 +71,17 @@
             e.preventDefault(); // prevent the default click action from being performed
             document.getElementById("")
             var filterCatagory = $("#FilterOptions_Category option:selected").text();
-            console.log(filterCatagory);
-            filterSelection(filterCatagory);
+            var filterMeat = $("#FilterOptions_Meat option:selected").text();
+            if (filterMeat !== "All") {
+                filterSelection(filterMeat);
+            }
+            if (filterCatagory !== "All") {
+                filterSelection(filterCatagory);
+            }
+            if (filterCatagory === "All" && filterMeat === "All") {
+                filterSelection("All");
+            }
+            
         });
         
     });
