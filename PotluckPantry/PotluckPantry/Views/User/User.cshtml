@@ -24,10 +24,13 @@
                                 @recipe.Description
                             </div>
                             <br />
-                            <div>
-                                Rating: /5
-                            </div>
-                            <br />
+                            @if (recipe.AvgScore != 0)
+                            {
+                                <div>
+                                    Rating: @recipe.AvgScore / 5
+                                </div>
+                                <br />
+                            }
                             <div>
                                 <a asp-action="Index" asp-controller="Recipe" asp-route-id="@recipe.Id">See Full Recipe</a>
                             </div>

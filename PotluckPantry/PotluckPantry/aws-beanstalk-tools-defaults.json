@@ -1,0 +1,20 @@
+
+{
+    "region" : "us-east-1",
+    "configuration" : "Debug",
+    "framework"     : "net5.0",
+    "self-contained" : false,
+    "application"    : "PotluckPantry",
+    "environment"    : "PotluckPantry",
+    "enable-xray"    : false,
+    "enhanced-health-type" : "basic",
+    "additional-options"   : "",
+    "solution-stack"       : "64bit Amazon Linux 2 v2.2.8 running .NET Core",
+    "environment-type"     : "SingleInstance",
+    "cname"                : "potluckpantry",
+    "instance-type"        : "t2.micro",
+    "key-pair"             : "PotluckPantryKeyPair",
+    "instance-profile"     : "aws-elasticbeanstalk-ec2-role",
+    "service-role"         : "aws-elasticbeanstalk-service-role",
+    "proxy-server"         : "nginx"
+}

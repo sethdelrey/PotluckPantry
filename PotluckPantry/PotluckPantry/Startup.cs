@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using PotluckPantry.Areas.Data.Accessors;
 using PotluckPantry.Data;
+using PotluckPantry.Data.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,9 +32,9 @@ namespace PotluckPantry
             /*services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseMySql(Configuration.GetConnectionString("PotluckPantry"), ServerVersion.AutoDetect(Configuration.GetConnectionString("PotluckPantry"))));
             services.AddDatabaseDeveloperPageExceptionFilter();*/
-
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlite(Configuration.GetConnectionString("PotluckPantry")));
+                options.UseMySql(
+                        RDSHelper.GetRDSConnectionString(Configuration), ServerVersion.AutoDetect(RDSHelper.GetRDSConnectionString(Configuration))));
             services.AddDatabaseDeveloperPageExceptionFilter();
 
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
@@ -60,6 +61,9 @@ namespace PotluckPantry
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+            
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 

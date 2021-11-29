@@ -72,12 +72,19 @@
             document.getElementById("")
             var filterCatagory = $("#FilterOptions_Category option:selected").text();
             var filterMeat = $("#FilterOptions_Meat option:selected").text();
+            console.log("Catagory: " + filterCatagory);
+            console.log("Meat: " + filterMeat);
+            if (filterMeat !== "All" && filterCatagory !== "All") {
+                filterSelectionTwo(filterMeat, filterCatagory);
+                return;
+            }
             if (filterMeat !== "All") {
                 filterSelection(filterMeat);
             }
             if (filterCatagory !== "All") {
                 filterSelection(filterCatagory);
             }
+            
             if (filterCatagory === "All" && filterMeat === "All") {
                 filterSelection("All");
             }
@@ -96,6 +103,17 @@
         for (i = 0; i < x.length; i++) {
             w3RemoveClass(x[i], "show");
             if (x[i].className.indexOf(c) > -1) w3AddClass(x[i], "show");
+        }
+    }
+
+    function filterSelectionTwo(c, d) {
+        var x, i;
+        x = document.getElementsByClassName("filterDiv");
+
+        // Add the "show" class (display:block) to the filtered elements, and remove the "show" class from the elements that are not selected
+        for (i = 0; i < x.length; i++) {
+            w3RemoveClass(x[i], "show");
+            if (x[i].className.indexOf(c) > -1 && x[i].className.indexOf(d) > -1) w3AddClass(x[i], "show");
         }
     }
 

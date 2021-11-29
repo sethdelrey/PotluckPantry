@@ -14,25 +14,26 @@ namespace PotluckPantry.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
+                .HasAnnotation("Relational:MaxIdentifierLength", 64)
                 .HasAnnotation("ProductVersion", "5.0.12");
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
                         .HasMaxLength(256)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("varchar(256)");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("Name")
                         .HasMaxLength(256)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("varchar(256)");
 
                     b.Property<string>("NormalizedName")
                         .HasMaxLength(256)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("varchar(256)");
 
                     b.HasKey("Id");
 
@@ -47,17 +48,17 @@ namespace PotluckPantry.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<string>("ClaimType")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("ClaimValue")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("RoleId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("varchar(256)");
 
                     b.HasKey("Id");
 
@@ -69,54 +70,54 @@ namespace PotluckPantry.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUser", b =>
                 {
                     b.Property<string>("Id")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<int>("AccessFailedCount")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("Email")
                         .HasMaxLength(256)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("varchar(256)");
 
                     b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<bool>("LockoutEnabled")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<DateTimeOffset?>("LockoutEnd")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("varchar(256)");
 
                     b.Property<string>("NormalizedUserName")
                         .HasMaxLength(256)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("varchar(256)");
 
                     b.Property<string>("PasswordHash")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("PhoneNumber")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("longtext");
 
                     b.Property<bool>("PhoneNumberConfirmed")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<string>("SecurityStamp")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("longtext");
 
                     b.Property<bool>("TwoFactorEnabled")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<string>("UserName")
                         .HasMaxLength(256)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("varchar(256)");
 
                     b.HasKey("Id");
 
@@ -134,17 +135,17 @@ namespace PotluckPantry.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<string>("ClaimType")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("ClaimValue")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("varchar(255)");
 
                     b.HasKey("Id");
 
@@ -157,18 +158,18 @@ namespace PotluckPantry.Migrations
                 {
                     b.Property<string>("LoginProvider")
                         .HasMaxLength(128)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("varchar(128)");
 
                     b.Property<string>("ProviderKey")
                         .HasMaxLength(128)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("varchar(128)");
 
                     b.Property<string>("ProviderDisplayName")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("varchar(255)");
 
                     b.HasKey("LoginProvider", "ProviderKey");
 
@@ -180,10 +181,10 @@ namespace PotluckPantry.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
                 {
                     b.Property<string>("UserId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("RoleId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("varchar(256)");
 
                     b.HasKey("UserId", "RoleId");
 
@@ -195,18 +196,18 @@ namespace PotluckPantry.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
                     b.Property<string>("UserId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("LoginProvider")
                         .HasMaxLength(128)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("varchar(128)");
 
                     b.Property<string>("Name")
                         .HasMaxLength(128)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("varchar(128)");
 
                     b.Property<string>("Value")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("longtext");
 
                     b.HasKey("UserId", "LoginProvider", "Name");
 
@@ -217,89 +218,102 @@ namespace PotluckPantry.Migrations
                 {
                     b.Property<string>("Id")
                         .HasMaxLength(36)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("varchar(36)");
 
                     b.Property<string>("Description")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("Name")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("longtext");
 
                     b.HasKey("Id");
 
                     b.ToTable("Ingredients");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "613d362f-8b05-43c6-822d-b84e4d9f5f59",
-                            Description = "A Pig Stomach, cleaned",
-                            Name = "Ponce"
-                        },
-                        new
-                        {
-                            Id = "7bcc0279-8b61-4924-9950-b729b40cd0b5",
-                            Description = "Onion, Green Bell Pepper, and Celery",
-                            Name = "Trinity"
-                        });
                 });
 
             modelBuilder.Entity("PotluckPantry.Areas.Data.Entities.Recipe", b =>
                 {
                     b.Property<string>("Id")
                         .HasMaxLength(36)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("varchar(36)");
+
+                    b.Property<double>("AvgScore")
+                        .HasColumnType("double");
+
+                    b.Property<int>("Category")
+                        .HasColumnType("int");
 
                     b.Property<string>("Description")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("Meat")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("PostTime")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("UserId")
+                        .HasMaxLength(36)
+                        .HasColumnType("varchar(36)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Recipes");
+                    b.HasIndex("UserId");
 
-                    b.HasData(
-                        new
-                        {
-                            Id = "5e07d9ea-6016-4a10-ae58-6ae2e8666f88",
-                            Description = "Bake Ponce and Trinity at 350 degrees for 2 hours or until ponce is tender. Serve warm.",
-                            PostTime = new DateTime(2021, 11, 14, 21, 18, 45, 107, DateTimeKind.Local).AddTicks(8896),
-                            Title = "Baked Ponce"
-                        });
+                    b.ToTable("Recipes");
+                });
+
+            modelBuilder.Entity("PotluckPantry.Areas.Data.Entities.RecipeIngredient", b =>
+                {
+                    b.Property<string>("RecipeId")
+                        .HasColumnType("varchar(36)");
+
+                    b.Property<string>("IngredientId")
+                        .HasColumnType("varchar(36)");
+
+                    b.Property<string>("NormalizedAmount")
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<string>("Amount")
+                        .HasColumnType("longtext");
+
+                    b.HasKey("RecipeId", "IngredientId", "NormalizedAmount");
+
+                    b.HasIndex("IngredientId");
+
+                    b.ToTable("RecipeIngredients");
                 });
 
             modelBuilder.Entity("PotluckPantry.Areas.Data.Entities.Review", b =>
                 {
                     b.Property<string>("Id")
                         .HasMaxLength(36)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("varchar(36)");
 
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasMaxLength(1000)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("varchar(1000)");
 
                     b.Property<string>("RecipeId")
                         .IsRequired()
                         .HasMaxLength(36)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("varchar(36)");
 
                     b.Property<DateTime>("ReviewTime")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<double>("Score")
-                        .HasColumnType("REAL");
+                        .HasColumnType("double");
 
                     b.Property<string>("UserId")
                         .IsRequired()
                         .HasMaxLength(36)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("varchar(36)");
 
                     b.HasKey("Id");
 
@@ -308,43 +322,6 @@ namespace PotluckPantry.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Reviews");
-                });
-
-            modelBuilder.Entity("PotluckPantry.Data.ApplicationDbContext+RecipeIngredient", b =>
-                {
-                    b.Property<string>("RecipeId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("IngredientId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("NormalizedAmount")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Amount")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("RecipeId", "IngredientId", "NormalizedAmount");
-
-                    b.HasIndex("IngredientId");
-
-                    b.ToTable("RecipeIngredients");
-
-                    b.HasData(
-                        new
-                        {
-                            RecipeId = "5e07d9ea-6016-4a10-ae58-6ae2e8666f88",
-                            IngredientId = "613d362f-8b05-43c6-822d-b84e4d9f5f59",
-                            NormalizedAmount = "1 PONCE",
-                            Amount = "1 Ponce"
-                        },
-                        new
-                        {
-                            RecipeId = "5e07d9ea-6016-4a10-ae58-6ae2e8666f88",
-                            IngredientId = "7bcc0279-8b61-4924-9950-b729b40cd0b5",
-                            NormalizedAmount = "2 CUPS",
-                            Amount = "2 Cups"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -396,6 +373,34 @@ namespace PotluckPantry.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("PotluckPantry.Areas.Data.Entities.Recipe", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("PotluckPantry.Areas.Data.Entities.RecipeIngredient", b =>
+                {
+                    b.HasOne("PotluckPantry.Areas.Data.Entities.Ingredient", "Ingredient")
+                        .WithMany("RecipeIngredients")
+                        .HasForeignKey("IngredientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("PotluckPantry.Areas.Data.Entities.Recipe", "Recipe")
+                        .WithMany("RecipeIngredients")
+                        .HasForeignKey("RecipeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Ingredient");
+
+                    b.Navigation("Recipe");
                 });
 
             modelBuilder.Entity("PotluckPantry.Areas.Data.Entities.Review", b =>
@@ -415,25 +420,6 @@ namespace PotluckPantry.Migrations
                     b.Navigation("Recipe");
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("PotluckPantry.Data.ApplicationDbContext+RecipeIngredient", b =>
-                {
-                    b.HasOne("PotluckPantry.Areas.Data.Entities.Ingredient", "Ingredient")
-                        .WithMany("RecipeIngredients")
-                        .HasForeignKey("IngredientId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("PotluckPantry.Areas.Data.Entities.Recipe", "Recipe")
-                        .WithMany("RecipeIngredients")
-                        .HasForeignKey("RecipeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Ingredient");
-
-                    b.Navigation("Recipe");
                 });
 
             modelBuilder.Entity("PotluckPantry.Areas.Data.Entities.Ingredient", b =>
